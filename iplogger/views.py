@@ -5,6 +5,7 @@ from .forms import TrackingCodeForm
 from .models import User,TrackingCode,Log
 from random import randint
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -51,6 +52,7 @@ def results(req, tracking_code):
     context={'tracking_code':tracking_code,'headers':info}
     return render(req,'iplogger/results.html',context)
 
+@login_required
 def createlink(req):
     if(req.POST):
         code_list = [c for c in TrackingCode.objects.all().values_list('code',flat=True)]

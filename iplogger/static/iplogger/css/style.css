@@ -5,7 +5,7 @@ body {
     background: #ffffff url('../images/banner01.jpg') no-repeat center top;
     background-size: cover;
     font-family: 'Open Sans', sans-serif;
-    padding-top: 50px;
+    padding-top: 60px;
 }
 
 blockquote, q {
@@ -37,6 +37,10 @@ table {
 	font-size: 34px;
     padding-top: 40px;
 }
+
+/* .navbar {
+    padding: 7px;
+} */
 .navbar-brand {
     font-family: 'Lobster', cursive;
 	font-size: 1.6em;
@@ -222,9 +226,8 @@ footer {
 }
 
 .form-primary .form-button2 {
-    right: 1.6em;
-    top: 0em;
-    /* left: 0em;*/
+    right: 5.3vw;
+    top: 0.5em;
     width: 6.2rem;/*140px*/
     height: 3.1rem;/*50px*/
     position: relative;
