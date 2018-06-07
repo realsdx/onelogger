@@ -1,0 +1,74 @@
+{% extends "./base.html" %}
+{% block content%}
+<div class="content">
+    <div class="container fadeInUp delay-03s">
+        <div class="container row">
+            <div class="logo text-center col-md-6 offset-md-3">
+                <h1>OneLogger</h1><br>
+                <h2>We Are Baking Something New!! Comming Soon</h2>
+            </div>
+        </div>
+        <div class="container row">
+            <div class="form-div text-center">
+                <form class="form-primary form-primary-logs"method="POST">
+                    {% csrf_token %}
+                    {{ tracking_code_form.tracking_code }}
+                    <input class="form-button" name="button" value="Logs!" type="submit">
+                </form>
+                <p class="sub-p">May the logs be with you!</p>
+            </div>
+        </div>
+    </div>
+
+    <section id="about" class="section-padding">
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3 col-sm-6 col-xs-12 wow fadeInUp delay-02s">
+                        <div class="img">
+                            <i class="fa fa-refresh"></i>
+                        </div>
+                        <h3 class="abt-hd">Our process</h3>
+                        <p>This logger is an example of how agressive a tracking can be. So fuck the GDPR. </p>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12 wow fadeInUp delay-04s">
+                        <div class="img">
+                            <i class="fa fa-eye"></i>
+                        </div>
+                        <h3 class="abt-hd">User Privacy</h3>
+                        <p>It's a Logger, it will never respect Privacy</p>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12 wow fadeInUp delay-06s">
+                        <div class="img">
+                            <i class="fa fa-cogs"></i>
+                        </div>
+                        <h3 class="abt-hd">Our Approach</h3>
+                        <p>Collect Data by any means necessary</p>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12 wow fadeInUp delay-08s">
+                        <div class="img">
+                            <i class="fa fa-dot-circle-o"></i>
+                        </div>
+                        <h3 class="abt-hd">Our Objective</h3>
+                        <p>Be silent.</p>
+                    </div>
+            </div>
+        </div>
+    </section>    
+</div>
+<!-- <footer class="footer fixed-bottom">
+    <div class="container">
+        <div class="bort">
+
+            <div class="copyright">
+                © Copyright realsdx. All rights reserved.
+                <div class="credits">
+                     Onelogger Made by
+                    <a href="https://twitter.com/realsdx/">@realsdx</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</footer> -->
+
+{% endblock %}

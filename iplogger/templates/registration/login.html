@@ -1,0 +1,38 @@
+{% extends "../iplogger/base.html" %}
+{% block content %}
+<div class="content form-div text-center">
+    {% if form.errors %}
+    <p class="alert alert-danger">Your username or password didn't match. Please try again.</p>
+    {% endif %}
+    {% if next %}
+        {% if user.is_authenticated %}
+            <p>You are not authorised to view this page.</p>
+        {% else %}
+            <p>Please Login to see this page.</p>
+        {% endif %}
+    {% endif %}
+
+    <form class="form-primary form-primary-login" method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>{{ form.username.label_tag }}</td>
+                <td>{{ form.username }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.password.label_tag }}</td>
+                <td>{{ form.password }}</td>
+            </tr>
+        </table>
+    
+        <input class="form-button2" type="submit" value="login" />
+        <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+    
+    {# Assumes you setup the password_reset view in your URLconf #}
+    <p class="forgot-pass">
+        <a class="text-warning" href="{% url 'password_reset' %}">Lost password?</a>
+    </p>
+
+</div>
+{% endblock %}

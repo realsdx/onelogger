@@ -1,0 +1,39 @@
+{% extends "./base.html" %}
+{% block script_head %}
+<script src="{% static"/iplogger/js/track.js"%}"></script>
+{% endblock %}
+{% block content%}
+<div class="container-fluid track-header bg-primary">
+    <h2>IP information for {{ tracking_code }}</h2>
+</div>
+<div class="container ipinfo">
+    <ul class="list-group">
+        {% for header,info in headers.items %}
+        <li class="list-group-item"> {{ header }} : {{ info }}</li>
+        {% endfor %}
+    </ul>
+    <ul class="list-group" id="jsdata">
+
+    </ul>
+</div>
+<footer class="container-fluid text-center">
+    <div class="row">
+        <div class="col-sm-4">
+            <h3>Contact Me</h3>
+            <br>
+            <h4>realsdx@protonmail.com</h4>
+        </div>
+        <div class="col-sm-4">
+            <h3>Connect </h3>
+            <br>
+            <h4>github</h4>
+        </div>
+        <div class="col-sm-4">
+            <h3>Terms</h3>
+            <br>
+            <a href="#">Privacy Policy</a>
+        </div>
+    </div>
+
+</footer>
+{% endblock %}

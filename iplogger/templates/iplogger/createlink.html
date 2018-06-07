@@ -1,0 +1,48 @@
+{% extends "./base.html" %}
+{% block content %}
+<!-- <style>
+    footer {
+    padding: 30px;
+    color: #fff;
+    position: relative;
+    bottom: 0;
+    top: 16em;
+    text-align: center;
+    background-color: #242830;
+    
+    }
+</style> -->
+<div class="content">
+    <div class="container">
+        <h1>Create Tracking URLs here</h1> <br>
+        
+        <button type="button" class="btn btn-primary" id="gen_code" >Generate Code</button>
+    </div>
+    <div class="container alert alert-success" id="tr">
+       <p id="trCode"></p>
+    </div>
+</div>
+{% endblock %}
+
+{% block script_foot %} 
+    <script>
+        $(document).ready(function(){
+            $("#gen_code").click(function(){
+                $.post("/createlink/",
+                {
+                    gen_code:"gen",
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },function(data){
+                    console.log("AjaX DOne");
+                    console.log(data);
+                    console.log(typeof data);
+                    var tr_code = data.code;
+                    console.log(tr_code);
+                    $("#trCode").html('Success! Your Tracking Code is :<strong>'+tr_code+'</strong>');
+                })
+            });
+            
+        });
+        
+    </script>
+{% endblock script_foot %}

@@ -1,0 +1,16 @@
+{% extends "./base.html" %} 
+
+{% block content%}
+<div class="content">
+    <div class="container-fluid track-header bg-primary">
+        <h2>IP information for {{ tracking_code }}</h2> 
+    </div>
+    <div class="container ipinfo">
+            <ul class="list-group">
+                {% for header,info in headers.items %}
+                <li class="list-group-item text-dark"> {{ header }} : {{ info }}</li>
+                {% endfor %}
+            </ul>
+    </div>
+</div>
+{% endblock %}

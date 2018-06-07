@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible">
+    <title>OneLogger</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% load static %} 
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static "/iplogger/css/bootstrap.min.css" %}" />
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="{% static " /iplogger/css/main.css " %}" /> {% block script_head %}{% endblock %} -->
+    <link href='https://fonts.googleapis.com/css?family=Lobster|Open+Sans:400,400italic,300italic,300|Raleway:300,400,600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="{% static "/iplogger/css/font-awesome.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "/iplogger/css/animate.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "/iplogger/css/style.css" %}">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand text-danger" href="/">OneLogger</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link text-info" href="/">Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-info" href="/createlink/">Create Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            Tools
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/">IP Logger</a>
+                            <a class="dropdown-item" href="#">API</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item disabled" href="#">Comming Soon</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        {% if user.is_authenticated %}
+                            <a class="nav-link text-info" href="#">{{ user.username }}</a>
+                        {% else %}
+                            <a class="nav-link text-info" href="/accounts/login/">Login</a>
+                        {% endif %}
+                    </li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link text-info" href="/accounts/logout/">Logout</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link text-info" href="/accounts/register/">Register</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% block content %} {% endblock %}
+    <footer class="_footer">
+        <div class="container">
+    
+            <div class="copyright">
+                © Copyright realsdx. All rights reserved.
+                <div class="credits">
+                    Onelogger Made by
+                    <a href="https://twitter.com/realsdx/">@realsdx</a>
+                </div>
+            </div>
+    
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script> {% block script_foot %} {% endblock script_foot %}
+</body>
+
+</html>

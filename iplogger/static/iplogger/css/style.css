@@ -1,0 +1,293 @@
+
+body {
+	line-height: 1.2;
+    height: 100%;
+    background: #ffffff url('../images/banner01.jpg') no-repeat center top;
+    background-size: cover;
+    font-family: 'Open Sans', sans-serif;
+    padding-top: 50px;
+}
+
+blockquote, q {
+	quotes: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/**********************************
+***********************************/
+/**********************************
+***********************************/
+.content
+{
+    margin-top: 50px;
+    min-height: 55vh;
+    /* padding-bottom: 100px; */
+	color: #fff;
+}
+.logo img
+{
+	display: inline-block;
+}
+.logo h2,h1
+{
+	font-family: 'Lobster', cursive;
+	font-size: 34px;
+    padding-top: 40px;
+}
+.navbar-brand {
+    font-family: 'Lobster', cursive;
+	font-size: 1.6em;
+}
+
+.input-group-addon {
+    color: #fff;
+    background-color: transparent;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.sub-p
+{
+	font-size: 14px;
+	padding: 5px 0px 15px;
+}
+
+.section-padding
+{
+	padding: 60px;
+}
+
+#about {
+    position: relative;
+    top:10em;
+}
+.about-title h2
+{
+	font-size: 24px;
+	font-family: 'Lobster', cursive;
+	padding-bottom: 10px;
+}
+.img
+{
+	margin-top: 30px;
+}
+.img i
+{
+	font-size: 44px;
+}
+.form-div
+{
+    width: 40%;
+    margin: 0 auto 50px;
+}
+.abt-hd
+{
+	font-size: 20px;
+	font-weight: bold;
+	padding: 10px 0px 15px;
+}
+.contact-title i {
+    color: #FFFFFF;
+    font-size: 1.8em;
+    text-align: right;
+    display: block;
+    padding: 65px 0 0 0;
+}
+.contact-title h2
+{
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #fff;
+    text-align: right;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 15px 0px 30px;
+}
+.contact-title p {
+    text-align: right;
+    margin-top: -5px;
+    color: rgba(236,240,241,0.9);
+    font-size: 13px;
+    word-spacing: 1px;
+    line-height: 25px;
+    padding-bottom: 30px;
+}
+.contact input[type="text"], .contact input[type="email"] {
+    width: 100%;
+    background: transparent;
+    border: 1px solid #EDEDED;
+    margin-bottom: 20px;
+    font-size: 13px;
+    outline: none;
+    color: #ffffff;
+}
+.social a i
+{
+    color: #fff;
+    display: block;
+    line-height: 48px;
+
+}
+.social a:hover
+{
+    text-decoration: none;
+}
+#contact-info
+{
+	padding: 0px 0px 40px;
+}
+
+
+.validation {
+    color: red;
+    display:none;
+    margin: 0 0 20px;
+    font-weight:400;
+    font-size:13px;
+}
+
+#sendmessage {
+    color: green;
+    border:1px solid green;
+    display:none;
+    text-align:center;
+    padding:15px;
+    font-weight:600;
+    margin-bottom:15px;
+}
+
+#errormessage {
+    color: red;
+    display:none;
+    border:1px solid red;
+    text-align:center;
+    padding:15px;
+    font-weight:600;
+    margin-bottom:15px;
+}
+
+#sendmessage.show, #errormessage.show, .show {
+	display:block;
+}
+
+footer {
+    padding: 30px;
+    color: #fff;
+    position: relative;
+    bottom: 0;
+    top: 6em;
+    text-align: center;
+    background-color: #242830;
+    
+}
+._footer a
+{
+    color: #24B7A4;
+}
+.credits {
+    padding-top: 10px;
+}
+
+.form-primary-login {
+    position: relative;
+    top: 10em;
+}
+.forgot-pass {
+    position: relative;
+    top: 12rem;
+    left: -10rem;
+    font-size: 1.1rem;
+}
+
+
+.form-primary-logs{
+    position: relative;
+    top: 10em;
+}
+.form-primary .form-button {
+    right: 0px;
+    top: 0px;
+    width: 6.2rem;/*140px*/
+    height: 3.1rem;/*50px*/
+    position: absolute;
+    color: #FFF;
+    background-color: #24B7A4;
+    border: medium none;
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+    font-family: "Roboto Slab",serif;
+    font-size: 18px;
+}
+
+.form-primary .form-button2 {
+    right: 1.6em;
+    top: 0em;
+    /* left: 0em;*/
+    width: 6.2rem;/*140px*/
+    height: 3.1rem;/*50px*/
+    position: relative;
+    color: #FFF;
+    background-color: #24B7A4;
+    border: medium none;
+    font-family: "Roboto Slab",serif;
+    font-size: 18px;
+}
+
+h2.subs-title  {
+    font-family: 'Lobster', cursive;
+    font-size: 34px;
+    padding: 30px 0px 20px;
+}
+.form-primary input {
+    height: 50px;
+    border: none;
+    width: 100%;
+    font-family: 'Lato', sans-serif;
+    font-size: 1em;
+    border-radius: 30px;
+    color: #000;
+}
+.form-primary input[type=text]
+{
+    padding-left: 30px;
+}
+/**********************************
+Media Queries
+***********************************/
+@media (min-width: 501px) and (max-width: 901px) {
+    .contact-title{
+        padding: 15px;
+}
+.section-padding {
+        padding: 60px 30px;
+}
+.form-primary .form-button {
+    width: 100px;
+    font-size: 15px;
+}
+.subcription-info {
+        width: 60%;
+        margin: 0 auto;
+}
+body{
+    overflow-x:hidden; 
+}
+}
+@media (min-width: 20px) and (max-width: 500px) {
+    .contact-title{
+        padding: 15px;
+}
+.section-padding {
+        padding: 60px 30px;
+}
+.form-primary .form-button {
+    width: 100px;
+    font-size: 15px;
+}
+.subcription-info {
+        width: 80%;
+        margin: 0 auto;
+}
+}
