@@ -54,13 +54,29 @@ def results(req, tracking_code):
 
 @login_required
 def createlink(req):
-    if(req.POST):
+    if(req.method == 'POST' and req.user.is_authenticated and 'gen_code' in req.POST):
+        global code_to_save
+        print(req.POST)
         code_list = [c for c in TrackingCode.objects.all().values_list('code',flat=True)]
         code = randint(1000000,9999999)
         while code in code_list:
             code = randint(1000000,9999999)
         print(code)
+        code_to_save = code
         return JsonResponse({'code':code})
+
+    elif(req.method == 'POST' and 'save_code' in req.POST):
+        current_user = User.objects.get(username=req.user)
+        if current_user.is_authenticated and (code_to_save != None):
+            code_obj = TrackingCode(code=code_to_save, user=current_user)
+            code_obj.save()
+            print("Code saved:", code_to_save)
+        #reset code to None
+            code_to_save = None
+            return JsonResponse({'res':'success'})
+        else:
+            return JsonResponse({'res':'error'})
+
     else:
         return render(req,'iplogger/createlink.html',{'code':''})
 

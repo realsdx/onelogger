@@ -61,6 +61,7 @@ class User(AbstractBaseUser):
     username = models.CharField(max_length = 64, unique = True)
     email = models.EmailField(blank = True)
     date_joined = models.DateTimeField('date joined', default=timezone.now)
+    number_of_trackers = models.IntegerField( default= 0)
 
     active = models.BooleanField(default = True)
     staff = models.BooleanField(default = False)
