@@ -19,7 +19,7 @@
         <button type="button" class="btn btn-primary" id="gen_code" >Generate Code</button>
     </div>
     <div class="container alert alert-success" id="tr">
-       <p id="trCode"></p>
+       
     </div>
 </div>
 {% endblock %}
@@ -34,13 +34,30 @@
                     csrfmiddlewaretoken: '{{ csrf_token }}'
                 },function(data){
                     console.log("AjaX DOne");
-                    console.log(data);
-                    console.log(typeof data);
                     var tr_code = data.code;
                     console.log(tr_code);
-                    $("#trCode").html('Success! Your Tracking Code is :<strong>'+tr_code+'</strong>');
-                })
+                    $("#tr").html('<p id="trCode">Success! Your Tracking Code is :'+
+                        '<strong>'+tr_code+'</strong>'+'</p>'+
+                        '<button type="button" class="btn" id="save_tr">Save This Code</button>');
+                    //Save the data
+                    var save_id = $('#save_tr');
+                    if(save_id.length > 0){
+                        save_id.click(function(){
+                            console.log("Save");
+                            $.post("/createlink/",
+                            {
+                                save_code:"yes",
+                                csrfmiddlewaretoken: '{{ csrf_token }}'
+                            }, function(data){
+                                //deal with post response
+                                console.log("Save post done");
+                                
+                            });
+                        });
+                    }
+                });         
             });
+            
             
         });
         
