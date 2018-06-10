@@ -1,6 +1,11 @@
 from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-from .models import User, TrackingCode
+from .models import TrackingCode
+from django.contrib.auth import get_user_model
+# from django.contrib.auth.models import User
+
+#Django sucks here, Need to import the custom User model explicitly, even though u updated th settings
+User = get_user_model()
 
 class TrackingCodeForm(forms.Form):
     tracking_code = forms.CharField(label = 'Tracking Code', max_length=256, widget=forms.TextInput(

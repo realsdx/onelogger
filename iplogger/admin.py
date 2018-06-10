@@ -3,10 +3,11 @@ from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-
+from django.contrib.auth import get_user_model
 from .forms import UserAdminCreationForm, UserAdminChangeForm
-from .models import User, TrackingCode, Log
+from .models import TrackingCode, Log
 
+User = get_user_model()
 class UserAdmin(BaseUserAdmin):
     # The forms to add and change user instances
     form = UserAdminChangeForm
@@ -33,6 +34,7 @@ class UserAdmin(BaseUserAdmin):
     search_fields = ('username',)
     ordering = ('username',)
     filter_horizontal = ()
+
 
 admin.site.register(User ,UserAdmin)
 admin.site.register(TrackingCode)

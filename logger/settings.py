@@ -123,3 +123,5 @@ STATIC_URL = '/static/'
 #Changed Settings
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+AUTH_USER_MODEL = 'iplogger.User'

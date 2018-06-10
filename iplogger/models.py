@@ -2,15 +2,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.utils import timezone
 
-# Create your models here.
-# class User(models.Model):
-#     username = models.CharField(max_length = 64, unique = True)
-#     email = models.EmailField()
-#     password = models.CharField(max_length = 256)
-#     number_of_trackers = models.IntegerField( default= 0)
-
-#     def __str__(self):
-#         return self.username;
 
 class UserManager(BaseUserManager):
     def create_user(self, username, password=None):
@@ -18,11 +9,12 @@ class UserManager(BaseUserManager):
         Creates and saves a User with the given username
         and password.
         """
-        if not email:
-            raise ValueError('Users must have an email address')
+        if not username:
+            raise ValueError('Users must have an username')
 
+        #always normalize username
         user = self.model(
-            username=self.username,
+            username=self.model.normalize_username(username),
         )
 
         user.set_password(password)
@@ -38,7 +30,7 @@ class UserManager(BaseUserManager):
             username,
             password=password,
         )
-        user.is_staff = True
+        user.staff = True
         user.save(using = self._db)
         return user
 
@@ -52,7 +44,8 @@ class UserManager(BaseUserManager):
             username,
             password=password,
         )
-        user.is_admin = True
+        user.staff = True
+        user.admin = True
         user.save(using=self._db)
         return user
 

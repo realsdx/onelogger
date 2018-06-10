@@ -2,13 +2,14 @@ from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect,JsonResponse
 from django.shortcuts import render
 from .forms import TrackingCodeForm
-from .models import User,TrackingCode,Log
+from .models import TrackingCode, Log
 from random import randint
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 
-
-
+#Django sucks here, Need to import the custom User model explicitly, even though u updated th settings
+User = get_user_model()
 # Create your views here.
 def index(req):
     if req.method == 'POST':
@@ -66,7 +67,8 @@ def createlink(req):
         return JsonResponse({'code':code})
 
     elif(req.method == 'POST' and 'save_code' in req.POST):
-        current_user = User.objects.get(username=req.user)
+        print(req.user)
+        current_user = req.user#User.objects.get(username=req.user)
         if current_user.is_authenticated and (code_to_save != None):
             code_obj = TrackingCode(code=code_to_save, user=current_user)
             code_obj.save()
