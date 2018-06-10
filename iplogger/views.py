@@ -5,7 +5,7 @@ from .forms import TrackingCodeForm
 from .models import TrackingCode, Log
 from random import randint
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm
+from .forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 
 #Django sucks here, Need to import the custom User model explicitly, even though u updated th settings
