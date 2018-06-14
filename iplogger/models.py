@@ -106,11 +106,11 @@ class TrackingCode(models.Model):
 
 class Log(models.Model):
     code = models.ForeignKey(TrackingCode , on_delete=models.CASCADE)
+    hit_count = models.IntegerField(default=0)
     first_hit = models.DateTimeField(auto_now_add=True)
     last_hit = models.DateTimeField(auto_now=True)
-    #code = models.CharField( max_length = 256)
-    req_headers= models.TextField(max_length= 2048)
-    parsed_headers = models.TextField(max_length= 2048,null=True,blank=True)
+    headers_info = models.TextField(max_length= 2048)
+    parsed_headers_info = models.TextField(max_length= 2048,null=True,blank=True)
 
     def __str__(self):
         return "LOG_%s" %(str(self.code))

@@ -8,6 +8,9 @@ from django.contrib.auth import get_user_model
 from iplogger.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 
+import json
+
+
 #Django sucks here, Need to import the custom User model explicitly, even though u updated th settings
 User = get_user_model()
 # Create your views here.
@@ -30,19 +33,30 @@ def index(req):
     return render(req,'iplogger/index.html',{'tracking_code_form':tracking_code_form})
 
 def track(req, tracking_code):
-    info = {}
-    required_headers=['REMOTE_ADDR','HTTP_HOST','HTTP_USER_AGENT','HTTP_HOST','HTTP_REFERER']
-    for keys in required_headers:
-        try:
-            info[keys]=req.META[keys]
-        except KeyError:
-            info[keys]='N/A'
-    #Save logs in any case (it may be same) and count hits
-    
-    
-    return render(req,'iplogger/track.html',{})
+    try:
+        tracking_code = int(tracking_code)
+        info = {}
+        required_headers = ['REMOTE_ADDR','HTTP_HOST','HTTP_USER_AGENT','HTTP_HOST','HTTP_REFERER']
+        for keys in required_headers:
+            try:
+                info[keys]=req.META[keys]
+            except KeyError:
+                info[keys]='N/A'
+        #Save logs in any case (it may be same) and count hits
+        json_info = json.dumps(info)
+        #get the code_obj to link with foreign key
+        code_obj = TrackingCode.objects.get(code=tracking_code)
+        log_obj = Log(code=code_obj, headers_info=json_info)
+        log_obj.save()
+        
+        
+        return render(req,'iplogger/track.html',{'headers':info})
+
+    except Exception as e:
+        print(e)
 
 
+@login_required
 def results(req, tracking_code):
     #test for ip infoclear
 
