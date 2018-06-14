@@ -9,7 +9,7 @@ from iplogger.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 
 import json
-
+import traceback
 
 #Django sucks here, Need to import the custom User model explicitly, even though u updated th settings
 User = get_user_model()
@@ -35,25 +35,27 @@ def index(req):
 def track(req, tracking_code):
     try:
         tracking_code = int(tracking_code)
-        info = {}
-        required_headers = ['REMOTE_ADDR','HTTP_HOST','HTTP_USER_AGENT','HTTP_HOST','HTTP_REFERER']
-        for keys in required_headers:
-            try:
-                info[keys]=req.META[keys]
-            except KeyError:
-                info[keys]='N/A'
-        #Save logs in any case (it may be same) and count hits
-        json_info = json.dumps(info)
-        #get the code_obj to link with foreign key
-        code_obj = TrackingCode.objects.get(code=tracking_code)
-        log_obj = Log(code=code_obj, headers_info=json_info)
-        log_obj.save()
-        
-        
-        return render(req,'iplogger/track.html',{'headers':info})
+        if TrackingCode.objects.filter(code=tracking_code).exists():
+            info = {}
+            required_headers = ['REMOTE_ADDR','HTTP_HOST','HTTP_USER_AGENT','HTTP_HOST','HTTP_REFERER']
+            for keys in required_headers:
+                try:
+                    info[keys]=req.META[keys]
+                except KeyError:
+                    info[keys]='N/A'
+            #Save logs in any case (it may be same) and count hits
+            json_info = json.dumps(info)
+            #get the code_obj to link with foreign key
+            code_obj = TrackingCode.objects.get(code=tracking_code)
+            log_obj = Log(code=code_obj, headers_info=json_info)
+            log_obj.save()        
+            return render(req,'iplogger/track.html',{'headers':info})
+            
+        else:
+            return None
 
-    except Exception as e:
-        print(e)
+    except Exception:
+        traceback.print_exc()
 
 
 @login_required
