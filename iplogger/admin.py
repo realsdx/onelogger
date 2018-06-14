@@ -36,9 +36,16 @@ class UserAdmin(BaseUserAdmin):
     filter_horizontal = ()
 
 
-admin.site.register(User ,UserAdmin)
-admin.site.register(TrackingCode)
-admin.site.register(Log)
+class TrackingCodeAdmin(admin.ModelAdmin):
+    readonly_fields = ('created_at',)
+
+class LogAdmin(admin.ModelAdmin):
+    readonly_fields = ('first_hit','last_hit',)
+
+
+admin.site.register(User, UserAdmin)
+admin.site.register(TrackingCode, TrackingCodeAdmin)
+admin.site.register(Log, LogAdmin)
 
 # Remove Group Model from admin. We're not using it.
 admin.site.unregister(Group)

@@ -50,7 +50,7 @@ def track(req, tracking_code):
             log_obj = Log(code=code_obj, headers_info=json_info)
             log_obj.save()        
             return render(req,'iplogger/track.html',{'headers':info})
-            
+
         else:
             return None
 
