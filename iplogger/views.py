@@ -60,18 +60,14 @@ def track(req, tracking_code):
 
 @login_required
 def results(req, tracking_code):
-    #test for ip infoclear
+    code_obj = TrackingCode.objects.get(code=tracking_code)
+    logs_obj_list = code_obj.log_set.all() #Get all objects using reference
+    
+    logs = {}
+    for i,log in enumerate(logs_obj_list):
+        logs.update({ i:json.loads(log.headers_info) })
 
-    info = {}
-    required_headers=['REMOTE_ADDR','HTTP_USER_AGENT','HTTP_HOST','HTTP_REFERER','HTTP_HOST']
-    for keys in required_headers:
-        try:
-            info[keys]=req.META[keys]
-        except KeyError:
-            info[keys]='N/A'
-    #print(info)
-    #print("HOST::"+req.get_host())
-    context={'tracking_code':tracking_code,'headers':info}
+    context={'tracking_code':tracking_code,'logs':logs}
     return render(req,'iplogger/results.html',context)
 
 @login_required
@@ -94,7 +90,7 @@ def createlink(req):
             code_obj = TrackingCode(code=code_to_save, user=current_user)
             code_obj.save()
             print("Code saved:", code_to_save)
-        #reset code to None
+            #reset code to None
             code_to_save = None
             return JsonResponse({'res':'success'})
         else:
