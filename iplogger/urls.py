@@ -7,4 +7,5 @@ urlpatterns=[
     path('results/<int:tracking_code>/',views.results, name ="results"),
     path('track/<int:tracking_code>/', views.track, name = 'track'),
     path('accounts/register/', views.register, name='registration'),
+    path('mylogs/', views.mylogs, name='mylogs'),
 ]

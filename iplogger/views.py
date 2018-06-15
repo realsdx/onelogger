@@ -37,7 +37,7 @@ def track(req, tracking_code):
         tracking_code = int(tracking_code)
         if TrackingCode.objects.filter(code=tracking_code).exists():
             info = {}
-            required_headers = ['REMOTE_ADDR','HTTP_HOST','HTTP_USER_AGENT','HTTP_HOST','HTTP_REFERER']
+            required_headers = ['REMOTE_ADDR','HTTP_USER_AGENT','HTTP_HOST','HTTP_REFERER']
             for keys in required_headers:
                 try:
                     info[keys]=req.META[keys]
@@ -103,8 +103,14 @@ def register(req):
     if(req.POST):
         form = UserCreationForm(req.POST)
         if form.is_valid:
+            #Begin reCAPTCHA validation
             form.save()
             return HttpResponseRedirect('/',{})
     else:
         form = UserCreationForm()
         return render(req, 'registration/register.html',{'form':form})
+
+@login_required
+def mylogs(req):
+    
+    return render(req, 'iplogger/mylogs.html',{})
