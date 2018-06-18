@@ -9,6 +9,8 @@ from iplogger.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 
 import json
+from datetime import datetime
+from django.utils import formats
 import traceback
 
 #Django sucks here, Need to import the custom User model explicitly, even though u updated th settings
@@ -65,7 +67,11 @@ def results(req, tracking_code):
     
     logs = {}
     for i,log in enumerate(logs_obj_list):
+        hit_time = datetime.strftime(log.last_hit, "%b %d '%y %H:%M:%S %p")
+        #Insanely ugly String formating
+        log.headers_info = '{' + '"hit":"' + str(hit_time) + '", ' +log.headers_info[1:]
         logs.update({ i:json.loads(log.headers_info) })
+
 
     context={'tracking_code':tracking_code,'logs':logs}
     return render(req,'iplogger/results.html',context)
