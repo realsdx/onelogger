@@ -80,22 +80,22 @@ def results(req, tracking_code):
 def createlink(req):
     if(req.method == 'POST' and req.user.is_authenticated and 'gen_code' in req.POST):
         global code_to_save
-        print(req.POST)
+        # print(req.POST)
         code_list = [c for c in TrackingCode.objects.all().values_list('code',flat=True)]
         code = randint(1000000,9999999)
         while code in code_list:
             code = randint(1000000,9999999)
-        print(code)
+        # print(code)
         code_to_save = code
         return JsonResponse({'code':code})
 
     elif(req.method == 'POST' and 'save_code' in req.POST):
-        print(req.user)
+        # print(req.user)
         current_user = req.user#User.objects.get(username=req.user)
         if current_user.is_authenticated and (code_to_save != None):
             code_obj = TrackingCode(code=code_to_save, user=current_user)
             code_obj.save()
-            print("Code saved:", code_to_save)
+            # print("Code saved:", code_to_save)
             #reset code to None
             code_to_save = None
             return JsonResponse({'res':'success'})
@@ -118,5 +118,12 @@ def register(req):
 
 @login_required
 def mylogs(req):
-    
-    return render(req, 'iplogger/mylogs.html',{})
+    if req.user.is_authenticated:
+        current_user = req.user
+        tr_codes = current_user.codes.all()
+
+    code_list = {}
+    for i,tr_code in enumerate(tr_codes):
+        code_list.update({i:tr_code.code})
+
+    return render(req, 'iplogger/mylogs.html',{'code_list':code_list})

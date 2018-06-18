@@ -37,7 +37,11 @@ class UserAdmin(BaseUserAdmin):
 
 
 class TrackingCodeAdmin(admin.ModelAdmin):
+    list_display = ['code', 'user', 'number_of_logs']
     readonly_fields = ('created_at',)
+
+    def number_of_logs(self, obj):
+        return len(obj.log_set.all())
 
 class LogAdmin(admin.ModelAdmin):
     readonly_fields = ('first_hit','last_hit',)
