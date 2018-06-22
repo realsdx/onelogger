@@ -38,9 +38,13 @@ table {
     padding-top: 40px;
 }
 
-/* .navbar {
-    padding: 7px;
-} */
+.track-header {
+    border-radius: 5px;
+    width: 50%;
+    height: 3.5em;
+    padding: 0.6em;
+}
+
 .navbar-brand {
     font-family: 'Lobster', cursive;
 	font-size: 1.6em;

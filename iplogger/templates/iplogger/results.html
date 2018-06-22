@@ -2,15 +2,31 @@
 
 {% block content%}
 <div class="content">
-    <div class="container-fluid track-header bg-primary">
-        <h2>IP information for {{ tracking_code }}</h2> 
+    <div class="container track-header bg-dark text-center">
+        <h2>Tracking Code: {{ tracking_code }}</h2> 
     </div>
-    <div class="container ipinfo">
-            <ul class="list-group">
-                {% for header,info in headers.items %}
-                <li class="list-group-item text-dark"> {{ header }} : {{ info }}</li>
+    <br />
+    <div class="container">
+        <table class="table table-hover table-dark">
+            <thead>
+                <tr>
+                    <th>Time <small>(UTC)</small></th>
+                    <th>IP Address</th>
+                    <th>User Agent</th>
+                    <th>Host</th>
+                    <th>Referer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for n,log in logs.items %}
+                <tr>
+                    {% for header,info in log.items %}
+                    <td>{{ info }}</td>
+                    {% endfor %}
+                </tr>
                 {% endfor %}
-            </ul>
+            </tbody>
+        </table>
     </div>
 </div>
 {% endblock %}

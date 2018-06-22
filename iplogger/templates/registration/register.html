@@ -3,6 +3,8 @@
     <form method="post" action="{% url 'registration' %}">
         {% csrf_token %}
         {{ form.as_p }}
+        {% comment %} <script src='https://www.google.com/recaptcha/api.js'></script>
+        <div class="g-recaptcha" data-sitekey="6LeJGl8UAAAAAK1qW_P1OevKj8UjSbxiigXVDYtC"></div> {% endcomment %}
         <button class="btn btn-primary" type="submit">Submit</button>
     </form>
 </div>

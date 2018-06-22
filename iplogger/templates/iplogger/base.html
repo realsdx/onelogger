@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     {% load static %} 
     <link rel="stylesheet" type="text/css" media="screen" href="{% static "/iplogger/css/bootstrap.min.css" %}" />
-    <!-- <link rel="stylesheet" type="text/css" media="screen" href="{% static " /iplogger/css/main.css " %}" /> {% block script_head %}{% endblock %} -->
     <link href='https://fonts.googleapis.com/css?family=Lobster|Open+Sans:400,400italic,300italic,300|Raleway:300,400,600' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="{% static "/iplogger/css/font-awesome.min.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "/iplogger/css/animate.css" %}">
@@ -39,7 +38,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/">IP Logger</a>
-                            <a class="dropdown-item" href="#">API</a>
+                            <a class="dropdown-item" href="{% url 'mylogs' %}">Mylogs</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item disabled" href="#">Comming Soon</a>
                         </div>

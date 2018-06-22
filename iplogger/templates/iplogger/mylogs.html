@@ -1,0 +1,10 @@
+{% extends "./base.html" %}
+{% block content%}
+<div class="content">
+    <ul>
+        {% for i,code in code_list.items %}
+        <li><a class="" href="/results/{{ code }}/">{{ code }}</li>
+        {% endfor %}
+    </ul>    
+</div>
+{% endblock %}
