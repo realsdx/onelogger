@@ -98,6 +98,7 @@ class User(AbstractBaseUser):
 
 class TrackingCode(models.Model):
     code = models.IntegerField(unique = True,default=0)
+    redirect_uri = models.URLField(deafault="https://www.google.com")
     created_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User , on_delete=models.CASCADE, related_name='codes', null=True, blank =True)
 

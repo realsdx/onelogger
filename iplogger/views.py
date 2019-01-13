@@ -49,6 +49,8 @@ def track(req, tracking_code):
             json_info = json.dumps(info)
             #get the code_obj to link with foreign key
             code_obj = TrackingCode.objects.get(code=tracking_code)
+            
+            redirect_uri = code_obj.redirect_uri
             log_obj = Log(code=code_obj, headers_info=json_info)
             log_obj.save()        
             return render(req,'iplogger/track.html',{'headers':info})
