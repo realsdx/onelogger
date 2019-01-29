@@ -14,4 +14,15 @@ function getIP()
 
 }
 
-getIP();
+var internal_ip = getIP();
+var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+//AJAX request to backend
+$(document).ready(function() {
+    $.post("/track/internal/", {
+        internal : internal_ip,
+        csrfmiddlewaretoken: '{{ csrf_token }}'
+    }, function(data){
+        console.log(data);
+        console.log("Internal", internal_ip);
+    });
+});

@@ -38,7 +38,11 @@
                     console.log(tr_code);
                     $("#tr").html('<p id="trCode">Success! Your Tracking Code is :'+
                         '<strong>'+tr_code+'</strong>'+'</p>'+
-                        '<button type="button" class="btn" id="save_tr">Save This Code</button>');
+                        '<form class="form-primary form-primary-logs">\
+                        <input type="text" class="form-control" placeholder="Enter Redirect URL" \
+                        maxlength="256" required="" id="redirect_uri_id">'+
+                        '<button type="button" class="btn" id="save_tr">Save This Code</button>'+
+                        '</form>');
                     //Save the data
                     var save_id = $('#save_tr');
                     if(save_id.length > 0){
@@ -47,6 +51,7 @@
                             $.post("/createlink/",
                             {
                                 save_code:"yes",
+                                redirect_uri: $('#redirect_uri_id').val(),
                                 csrfmiddlewaretoken: '{{ csrf_token }}'
                             }, function(data){
                                 //deal with post response

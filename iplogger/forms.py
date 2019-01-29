@@ -15,6 +15,14 @@ class TrackingCodeForm(forms.Form):
         }
     ))
 
+class RedirectURIForm(forms.Form):
+    redirect_uri = forms.CharField(label = 'Redirect URL', max_length=256, widget=forms.TextInput(
+        attrs={
+            'class':'form-control',
+            'placeholder':'Enter the Redirect URL'
+        }
+    ))
+
 
 class RegisterForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
