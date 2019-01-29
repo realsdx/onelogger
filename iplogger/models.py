@@ -98,6 +98,7 @@ class User(AbstractBaseUser):
 
 class TrackingCode(models.Model):
     code = models.IntegerField(unique = True,default=0)
+    redirect_uri = models.URLField(default="https://www.google.com")
     created_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User , on_delete=models.CASCADE, related_name='codes', null=True, blank =True)
 
@@ -110,6 +111,7 @@ class Log(models.Model):
     first_hit = models.DateTimeField(auto_now_add=True)
     last_hit = models.DateTimeField(auto_now=True)
     headers_info = models.TextField(max_length= 2048)
+    internal_ip = models.CharField(max_length=64, null=True, blank=True)
     parsed_headers_info = models.TextField(max_length= 2048,null=True,blank=True)
 
     def __str__(self):

@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect,JsonResponse
 from django.shortcuts import render
-from iplogger.forms import TrackingCodeForm
+from iplogger.forms import TrackingCodeForm,  RedirectURIForm
 from iplogger.models import TrackingCode, Log
 from random import randint
 from django.contrib.auth import get_user_model
 from iplogger.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 import json
 from datetime import datetime
@@ -34,6 +35,7 @@ def index(req):
 
     return render(req,'iplogger/index.html',{'tracking_code_form':tracking_code_form})
 
+@ensure_csrf_cookie
 def track(req, tracking_code):
     try:
         tracking_code = int(tracking_code)
@@ -49,16 +51,36 @@ def track(req, tracking_code):
             json_info = json.dumps(info)
             #get the code_obj to link with foreign key
             code_obj = TrackingCode.objects.get(code=tracking_code)
+            
+            redirect_uri = code_obj.redirect_uri
             log_obj = Log(code=code_obj, headers_info=json_info)
             log_obj.save()        
-            return render(req,'iplogger/track.html',{'headers':info})
-
+            return render(req,'iplogger/track.html',{'headers':info, 'redirect_uri': redirect_uri,'tr_code': tracking_code})
         else:
             return None
 
     except Exception:
         traceback.print_exc()
 
+def get_internal(req):
+    if(req.POST and 'tr_code' in req.POST):
+        try:
+            print(type(req.POST), req.POST)
+            tracking_code = int(req.POST['tr_code'])
+            internal = req.POST['internal']
+            if TrackingCode.objects.filter(code=tracking_code).exists():
+                code_obj = TrackingCode.objects.get(code=tracking_code)  
+                redirect_uri = code_obj.redirect_uri
+                log_obj = Log.objects.filter(code=code_obj).last()
+                log_obj.internal_ip = internal
+                log_obj.save(update_fields=["internal_ip"])
+            else:
+                return None
+        except Exception:
+            traceback.print_exc()
+        return JsonResponse({'res':'success', 'redirect_uri': redirect_uri})
+    else:
+        return JsonResponse({'res':'error'})
 
 @login_required
 def results(req, tracking_code):
@@ -90,10 +112,14 @@ def createlink(req):
         return JsonResponse({'code':code})
 
     elif(req.method == 'POST' and 'save_code' in req.POST):
-        # print(req.user)
         current_user = req.user#User.objects.get(username=req.user)
         if current_user.is_authenticated and (code_to_save != None):
-            code_obj = TrackingCode(code=code_to_save, user=current_user)
+            redirect_uri = "https://www.google.com"
+            if('redirect_uri' in req.POST):
+                redirect_uri = req.POST["redirect_uri"]
+                redirect_uri = redirect_uri if "://" in redirect_uri else "https://"+redirect_uri
+
+            code_obj = TrackingCode(code=code_to_save, user=current_user, redirect_uri=redirect_uri)
             code_obj.save()
             # print("Code saved:", code_to_save)
             #reset code to None
@@ -103,6 +129,7 @@ def createlink(req):
             return JsonResponse({'res':'error'})
 
     else:
+        redirect_uri_form  = RedirectURIForm()
         return render(req,'iplogger/createlink.html',{'code':''})
 
 def register(req):

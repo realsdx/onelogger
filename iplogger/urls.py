@@ -6,6 +6,7 @@ urlpatterns=[
     path('createlink/',views.createlink, name ="createlink"),
     path('results/<int:tracking_code>/',views.results, name ="results"),
     path('track/<int:tracking_code>/', views.track, name = 'track'),
+    path('track/internal/', views.get_internal, name = 'internal'),
     path('accounts/register/', views.register, name='registration'),
     path('mylogs/', views.mylogs, name='mylogs'),
 ]
