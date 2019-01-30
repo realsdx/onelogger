@@ -1,4 +1,9 @@
 # Onelogger
+[![Build Status](https://travis-ci.com/realsdx/onelogger.svg?branch=master)](https://travis-ci.com/realsdx/onelogger) ![Code Size in bytes](https://img.shields.io/github/languages/code-size/realsdx/onelogger.svg?style=flat) ![Python Versions](https://img.shields.io/pypi/pyversions/django.svg?style=flat)
+
+![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg) [![forthebadge](https://forthebadge.com/images/badges/gluten-free.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/kinda-sfw.svg)](https://forthebadge.com)
+
+
 This is an open source IP Logger with Private IP Logging capability.
 For now it can log any target's Public/Private IPs and User-Agent.
 
