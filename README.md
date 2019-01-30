@@ -1,5 +1,6 @@
 # Onelogger
-
+This is an open source IP Logger with Private IP Logging capability.
+For now it can log any target's Public/Private IPs and User-Agent. 
 
 ## Building from Source
 
