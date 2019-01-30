@@ -44,9 +44,6 @@ contribution should be followed if you want to submit a pull request.
 * [GitHub pull request documentation](http://help.github.com/send-pull-requests/)
 * [Read the Issue Guidelines by @necolas](https://github.com/necolas/issue-guidelines/blob/master/CONTRIBUTING.md)
   for more details
-* [A sneak peek into EcmaScript](https://github.com/ericdouglas/ES6-Learning)
-* [Learn EcmaScript by coding](http://es6katas.org)
-* [Getting started with ReactJS](https://facebook.github.io/react)
 
 ## Notes
 
