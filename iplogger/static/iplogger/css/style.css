@@ -6,6 +6,7 @@ body {
     background-size: cover;
     font-family: 'Open Sans', sans-serif;
     padding-top: 60px;
+		text-align: center;
 }
 
 blockquote, q {
@@ -188,7 +189,7 @@ footer {
     top: 6em;
     text-align: center;
     background-color: #242830;
-    
+
 }
 ._footer a
 {
@@ -279,7 +280,7 @@ Media Queries
         margin: 0 auto;
 }
 body{
-    overflow-x:hidden; 
+    overflow-x:hidden;
 }
 }
 @media (min-width: 20px) and (max-width: 500px) {
@@ -297,4 +298,36 @@ body{
         width: 80%;
         margin: 0 auto;
 }
+}  h3{
+	font-style: italic;
+	font-size: 20px;
+}.logginbox p{
+   margin: 2px;
+   font-weight:bold;
+   }
+  .logginbox input{
+   width:100%;
+   margin-bottom: 20px;
 }
+  .logginbox input[type="text"],input[type="password"]
+  { border:2px solid black;
+    border-radius:8px;
+     background:transparent;
+
+    height:40px;
+    color:black;
+    font-size:16px;
+ }
+  .logginbox input[type="submit"]
+{  border:3px solid black;
+   border-radius:4px;
+   height:40px;
+   background:#fb2525;
+   color:white;
+    font-size:18px;
+}
+ .logginbox input[type="submit"]:hover
+ { cursor:pointer;
+   background:#ffc107;
+   color:black;
+ }
