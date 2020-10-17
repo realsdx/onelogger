@@ -64,7 +64,7 @@ table {
 
 .section-padding
 {
-	padding: 60px;
+	padding: 1.5rem;
 }
 
 #about {
@@ -181,7 +181,7 @@ table {
 }
 
 footer {
-    padding: 30px;
+    padding: 1rem;
     color: #fff;
     position: relative;
     bottom: 0;
@@ -200,7 +200,7 @@ footer {
 
 .form-primary-login {
     position: relative;
-    top: 10em;
+    top: 25vh;
 }
 .forgot-pass {
     position: relative;
@@ -210,30 +210,10 @@ footer {
 }
 
 
-.form-primary-logs{
-    position: relative;
-    top: 10em;
-}
 .form-primary .form-button {
-    right: 0px;
-    top: 0px;
-    width: 6.2rem;/*140px*/
-    height: 3.1rem;/*50px*/
-    position: absolute;
-    color: #FFF;
-    background-color: #24B7A4;
-    border: medium none;
-    border-bottom-left-radius: 0px;
-    border-top-left-radius: 0px;
-    font-family: "Roboto Slab",serif;
-    font-size: 18px;
-}
-
-.form-primary .form-button2 {
-    right: 5.3vw;
-    top: 0.5em;
-    width: 6.2rem;/*140px*/
-    height: 3.1rem;/*50px*/
+    
+    width: 6.2rem;
+    height: 3.1rem;
     position: relative;
     color: #FFF;
     background-color: #24B7A4;
@@ -248,7 +228,7 @@ h2.subs-title  {
     padding: 30px 0px 20px;
 }
 .form-primary input {
-    height: 50px;
+    /* height: 50px; */
     border: none;
     width: 100%;
     font-family: 'Lato', sans-serif;
@@ -260,6 +240,14 @@ h2.subs-title  {
 {
     padding-left: 30px;
 }
+
+.logs {
+    margin-top: 2rem;
+    padding-bottom: 1rem;
+    background-color: rgb(206, 206, 171);
+}
+
+
 /**********************************
 Media Queries
 ***********************************/

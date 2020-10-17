@@ -1,21 +1,20 @@
 {% extends "./base.html" %}
 {% block content%}
-<div class="content">
+<div class="content container">
     <div class="container fadeInUp delay-03s">
         <div class="container row">
             <div class="logo text-center col-md-6 offset-md-3">
                 <h1>OneLogger</h1><br>
-                <h2>We Are Baking Something New!! Comming Soon</h2>
+                <h2>Intelligent Logging!!</h2>
             </div>
         </div>
         <div class="container row">
             <div class="form-div text-center">
-                <form class="form-primary form-primary-logs"method="POST">
+                <form class="form-primary form-primary-logs" method="POST" style="display: inline-flex;">
                     {% csrf_token %}
                     {{ tracking_code_form.tracking_code }}
                     <input class="form-button" name="button" value="Logs!" type="submit">
                 </form>
-                <p class="sub-p">May the logs be with you!</p>
             </div>
         </div>
     </div>
@@ -53,22 +52,7 @@
                     </div>
             </div>
         </div>
-    </section>    
+    </section>   
 </div>
-<!-- <footer class="footer fixed-bottom">
-    <div class="container">
-        <div class="bort">
-
-            <div class="copyright">
-                © Copyright realsdx. All rights reserved.
-                <div class="credits">
-                     Onelogger Made by
-                    <a href="https://twitter.com/realsdx/">@realsdx</a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</footer> -->
 
 {% endblock %}

@@ -8,6 +8,7 @@ from django.contrib.auth import get_user_model
 from iplogger.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import ensure_csrf_cookie
+from django.utils.crypto import get_random_string
 
 import json
 from datetime import datetime
@@ -16,14 +17,14 @@ import traceback
 
 #Django sucks here, Need to import the custom User model explicitly, even though u updated th settings
 User = get_user_model()
-# Create your views here.
+
 def index(req):
     if req.method == 'POST':
         tracking_code_form = TrackingCodeForm(req.POST)
         if tracking_code_form.is_valid():
             code_list = [c for c in TrackingCode.objects.all().values_list('code',flat=True)]
             #print("CODElist:"+str(code_list))
-            t_code = int(tracking_code_form.cleaned_data['tracking_code'])
+            t_code = tracking_code_form.cleaned_data['tracking_code']
             #print("TCODE:"+str(t_code))
             if t_code in code_list:           
                 print("Redirected to result")
@@ -38,7 +39,7 @@ def index(req):
 @ensure_csrf_cookie
 def track(req, tracking_code):
     try:
-        tracking_code = int(tracking_code)
+        # tracking_code = int(tracking_code)
         if TrackingCode.objects.filter(code=tracking_code).exists():
             info = {}
             required_headers = ['REMOTE_ADDR','HTTP_USER_AGENT','HTTP_HOST','HTTP_REFERER']
@@ -66,7 +67,7 @@ def get_internal(req):
     if(req.POST and 'tr_code' in req.POST):
         try:
             print(type(req.POST), req.POST)
-            tracking_code = int(req.POST['tr_code'])
+            tracking_code = req.POST['tr_code']
             internal = req.POST['internal']
             if TrackingCode.objects.filter(code=tracking_code).exists():
                 code_obj = TrackingCode.objects.get(code=tracking_code)  
@@ -101,32 +102,17 @@ def results(req, tracking_code):
 @login_required
 def createlink(req):
     if(req.method == 'POST' and req.user.is_authenticated and 'gen_code' in req.POST):
-        global code_to_save
-        # print(req.POST)
-        code_list = [c for c in TrackingCode.objects.all().values_list('code',flat=True)]
-        code = randint(1000000,9999999)
-        while code in code_list:
-            code = randint(1000000,9999999)
-        # print(code)
-        code_to_save = code
-        return JsonResponse({'code':code})
+        code = get_random_string(length=16)
 
-    elif(req.method == 'POST' and 'save_code' in req.POST):
-        current_user = req.user#User.objects.get(username=req.user)
-        if current_user.is_authenticated and (code_to_save != None):
-            redirect_uri = "https://www.google.com"
-            if('redirect_uri' in req.POST):
-                redirect_uri = req.POST["redirect_uri"]
-                redirect_uri = redirect_uri if "://" in redirect_uri else "https://"+redirect_uri
+        redirect_uri = "https://www.google.com"
+        if('redirect_uri' in req.POST):
+            redirect_uri = req.POST["redirect_uri"]
+            redirect_uri = redirect_uri if "://" in redirect_uri else "https://"+redirect_uri
 
-            code_obj = TrackingCode(code=code_to_save, user=current_user, redirect_uri=redirect_uri)
-            code_obj.save()
-            # print("Code saved:", code_to_save)
-            #reset code to None
-            code_to_save = None
-            return JsonResponse({'res':'success'})
-        else:
-            return JsonResponse({'res':'error'})
+        code_obj = TrackingCode(code=code, user=req.user, redirect_uri=redirect_uri)
+        code_obj.save()
+
+        return JsonResponse({'res':'success', 'code':code, 'redirect_uri': redirect_uri})
 
     else:
         redirect_uri_form  = RedirectURIForm()
@@ -136,7 +122,6 @@ def register(req):
     if(req.POST):
         form = UserCreationForm(req.POST)
         if form.is_valid:
-            #Begin reCAPTCHA validation
             form.save()
             return HttpResponseRedirect('/',{})
     else:
