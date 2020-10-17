@@ -1,70 +1,39 @@
 {% extends "./base.html" %}
 {% block content %}
-<!-- <style>
-    footer {
-    padding: 30px;
-    color: #fff;
-    position: relative;
-    bottom: 0;
-    top: 16em;
-    text-align: center;
-    background-color: #242830;
-    
-    }
-</style> -->
-<div class="content">
+
+<div class="content" id="tr">
     <div class="container text-center">
         <h1>Create Tracking URLs here</h1> <br>
-        
-        <button type="button" class="btn btn-primary" id="gen_code" >Generate Code</button>
-    </div>
-    <div class="container alert alert-success" id="tr">
-       
+        <form class="form-primary" style="display: inline-flex; padding-bottom: 1rem;">
+            <input type="text" class="form-control" placeholder="Set Redirect URL" maxlength="256" required=""
+                id="redirect_uri_id">
+            <button type="button" class="btn btn-info" id="gen_code">Generate Code</button>
+        </form>
     </div>
 </div>
 {% endblock %}
 
-{% block script_foot %} 
-    <script>
-        $(document).ready(function(){
-            $("#gen_code").click(function(){
-                $.post("/createlink/",
+{% block script_foot %}
+<script>
+    $(document).ready(function () {
+        $("#gen_code").click(function () {
+            console.log("CKKC");
+            $.post("/createlink/",
                 {
-                    gen_code:"gen",
+                    gen_code: "gen",
+                    redirect_uri: $('#redirect_uri_id').val(),
                     csrfmiddlewaretoken: '{{ csrf_token }}'
-                },function(data){
-                    console.log("AjaX DOne");
+                }, function (data) {
+                    console.log("AjaX Res:", data);
                     var tr_code = data.code;
-                    console.log(tr_code);
-                    $("#tr").html('<p id="trCode">Success! Your Tracking Code is :'+
-                        '<strong>'+tr_code+'</strong>'+'</p>'+
-                        '<form class="form-primary form-primary-logs">\
-                        <input type="text" class="form-control" placeholder="Enter Redirect URL" \
-                        maxlength="256" required="" id="redirect_uri_id">'+
-                        '<button type="button" class="btn" id="save_tr">Save This Code</button>'+
-                        '</form>');
-                    //Save the data
-                    var save_id = $('#save_tr');
-                    if(save_id.length > 0){
-                        save_id.click(function(){
-                            console.log("Save");
-                            $.post("/createlink/",
-                            {
-                                save_code:"yes",
-                                redirect_uri: $('#redirect_uri_id').val(),
-                                csrfmiddlewaretoken: '{{ csrf_token }}'
-                            }, function(data){
-                                //deal with post response
-                                console.log("Save post done");
-                                console.log(data.res);
-                            });
-                        });
-                    }
-                });         
-            });
-            
-            
+                    var redirect_uri = data.redirect_uri;
+
+                    var result = '<div class="container alert alert-success" id="tr">' +
+                        '<p id="trCode">Your Tracking URL is :' + '<strong>' + window.location.origin +
+                        "/track/" + tr_code + '</strong> --> ' + redirect_uri + '</p></div>';
+                    $("#tr").append(result);
+                });
         });
-        
-    </script>
+    });
+</script>
 {% endblock script_foot %}

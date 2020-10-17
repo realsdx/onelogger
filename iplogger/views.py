@@ -102,32 +102,17 @@ def results(req, tracking_code):
 @login_required
 def createlink(req):
     if(req.method == 'POST' and req.user.is_authenticated and 'gen_code' in req.POST):
-        global code_to_save
-        # print(req.POST)
-        # code_list = [c for c in TrackingCode.objects.all().values_list('code',flat=True)]
         code = get_random_string(length=16)
-        # while code in code_list:
-        #     code = randint(1000000,9999999)
-        # print(code)
-        code_to_save = code
-        return JsonResponse({'code':code})
 
-    elif(req.method == 'POST' and 'save_code' in req.POST):
-        current_user = req.user#User.objects.get(username=req.user)
-        if current_user.is_authenticated and (code_to_save != None):
-            redirect_uri = "https://www.google.com"
-            if('redirect_uri' in req.POST):
-                redirect_uri = req.POST["redirect_uri"]
-                redirect_uri = redirect_uri if "://" in redirect_uri else "https://"+redirect_uri
+        redirect_uri = "https://www.google.com"
+        if('redirect_uri' in req.POST):
+            redirect_uri = req.POST["redirect_uri"]
+            redirect_uri = redirect_uri if "://" in redirect_uri else "https://"+redirect_uri
 
-            code_obj = TrackingCode(code=code_to_save, user=current_user, redirect_uri=redirect_uri)
-            code_obj.save()
-            # print("Code saved:", code_to_save)
-            #reset code to None
-            code_to_save = None
-            return JsonResponse({'res':'success'})
-        else:
-            return JsonResponse({'res':'error'})
+        code_obj = TrackingCode(code=code, user=req.user, redirect_uri=redirect_uri)
+        code_obj.save()
+
+        return JsonResponse({'res':'success', 'code':code, 'redirect_uri': redirect_uri})
 
     else:
         redirect_uri_form  = RedirectURIForm()
