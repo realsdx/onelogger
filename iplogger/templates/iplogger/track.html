@@ -1,19 +1,13 @@
 {% extends "./base.html" %}
 {% block content%}
-
-<div class="container-fluid track-header bg-primary">
-    <h2>IP information for {{ tracking_code }}</h2>
+<link rel="stylesheet" href="static\iplogger\css\track.css">
+<div class="preload">
+	<div class="logo">
+	<span style="color: darkturquoise">Loading..</span>
 </div>
-<div class="container ipinfo">
-    <ul class="list-group">
-        {% for header,info in headers.items %}
-        <li class="list-group-item"> {{ header }} : {{ info }}</li>
-        {% endfor %}
-    </ul>
-    <ul class="list-group" id="jsdata">
-
-    </ul>
-</div>
+<div class="loader-frame">
+<div class="loader1" id="loader1"></div>
+<div class="loader2" id="loader2"></div>
 {% endblock %}
 
 {% csrf_token %}
